@@ -1,0 +1,27 @@
+body{font:12px/1.5 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif}
+h2 {margin:0; font-size:18px;}
+.year {color:#F2583E; font-weight:700;}
+
+/* set margins */
+h2, h3, p { margin:5px 0;}
+
+/* field styling */
+ul.fields {list-style-type:none; margin:0; padding:0;}
+ul.fields li {margin:2px 2px; padding:2px;text-transform:uppercase;}
+
+/* field icons */
+ul.fields span.ui-icon {float:left; margin-right:4px; cursor:pointer;}
+ul.fields span.ui-icon.ui-icon-triangle-2-n-s,
+ul.fields span.ui-icon.ui-icon-triangle-1-n,
+ul.fields span.ui-icon.ui-icon-triangle-1-s  {float:right; margin-right:0;}
+
+/* ui interaction styling */
+ul#selected-fields li {cursor:move;}
+#selected-fields .ui-icon-plus,
+#available-fields .ui-icon-close,
+#available-fields .ui-icon-triangle-2-n-s,
+#selected-fields .ui-icon-triangle-2-n-s {display:none;}
+
+#selected-fields .orderable .ui-icon-triangle-2-n-s {display:inherit;}
+
+
