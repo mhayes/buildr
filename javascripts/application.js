@@ -98,7 +98,6 @@ $(function () {
 			min:1982, 
 			max:new Date().getFullYear(), 
 			values:[1995, 2000],			
-			
 			slide:function(event, ui) {
 				$(this).prev('p').find('.min.year').text(ui.values[0]);
 				$(this).prev('p').find('.max.year').text(ui.values[1]);
@@ -110,5 +109,12 @@ $(function () {
 			buttonImage: 'stylesheets/flick/images/datepicker.gif',
 			buttomImageOnly: true
 			
+		});
+		
+		// Interaction: Autocomplete controls
+		// TODO: Add data-method to specify search method
+		$('.autocomplete:text').css('width','250px').autocomplete({
+			source: 'search.cfc?method=search_pesticides',
+			minLength: 5
 		});
 });
