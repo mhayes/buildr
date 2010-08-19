@@ -56,15 +56,16 @@ $(function () {
 			function() {$(this).removeClass('ui-state-active');}
 		);
 				
-		// Event: Set list item to display
+		// Event: Add list item to display
 		$('.fields .ui-icon-plus').click(function() {
-		  $(this).parent('li').appendTo('#selected-fields');
+		  //$(this).parent('li').appendTo('#selected-fields');
+		  $(this).parent('li').hide().appendTo('#selected-fields').fadeIn();
 		});
 		
 		// Event: Remove list item
 		$('.fields .ui-icon-close').click(function() {
 		  var list = $('#available-fields');
-		  $(this).parent('li').appendTo(list);
+		  $(this).parent('li').hide().appendTo(list).fadeIn();
 		  list.sort();
 		});
 		
