@@ -1,4 +1,4 @@
-$.fn.sortList = function() {
+$.fn.sort = function() {
     var list = $(this);
     var listitems = list.children('li').get();
     listitems.sort(function(a, b) {
@@ -25,72 +25,69 @@ $.fn.toggleIcons = function(iconClasses) {
 };
 
 $(function () {
+		// Utility: Order available-fields in ascending order
+		$('#available-fields').sort();
+		
+		// Style: Replace H2 fonts		
 		Cufon.replace('h2');
 		
-		$('h2').addClass('ui-corner-all');
-		
-		//order the available-fields list (in ascending order)
-		$('#available-fields').sortList();
-		
-		//allow selected-fields list to be sorted
-		$('#selected-fields').sortable({opacity:0.6});
-		
-		$('button.modal').button({icons:{primary:'ui-icon-newwin'}});
-		$('button.run').button({icons:{primary:'ui-icon-transferthick-e-w'}});
-		
-		$('button.add-filter').button({icons:{primary:'ui-icon-newwin'}});
-		/*.click(function() {
-		  $('<div class="dialog">Filter details go here</div>').dialog({
-		      modal:true,
-			  width:460,
-			  height:460,
-			  autoOpen:true, 
-			  title:'Add a filter to this query',
-			  buttons:{
-		          "Add":function() {$(this).dialog("close"); }
-		      }
-		  });
+		// Style: Modal button
+		$('button.modal').button({
+			icons:{primary:'ui-icon-newwin'}
 		});
-		*/
-
-		//list styling
+		
+		// Style: Run button
+		$('button.run').button({
+			icons:{primary:'ui-icon-transferthick-e-w'}
+		});
+		
+		// Style: List items
 		$('.fields li').each(function() {
 		  $(this)
 		      .addClass("ui-state-default ui-widget-content ui-corner-all")
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-close"></span>')
-		      .prepend('<span class="wii-sort ui-widget-content ui-corner-all ui-icon ui-icon-triangle-2-n-s"></span>')
+		      .prepend('<span class="ui-custom-sorticon ui-widget-content ui-corner-all ui-icon ui-icon-triangle-2-n-s"></span>')
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
 		});
 		
-		
-		//ui hover interaction		
+		// Syle: List hovering		
 		$('.fields li').hover(
 			function() {$(this).addClass('ui-state-active');}, 
 			function() {$(this).removeClass('ui-state-active');}
 		);
-		
-		//list manipulation
+				
+		// Event: Set list item to display
 		$('.fields .ui-icon-plus').click(function() {
 		  $(this).parent('li').appendTo('#selected-fields');
 		});
 		
+		// Event: Remove list item
 		$('.fields .ui-icon-close').click(function() {
 		  var list = $('#available-fields');
 		  $(this).parent('li').appendTo(list);
-		  list.sortList();
+		  list.sort();
 		});
 		
-				
-		$('#selected-fields .wii-sort').live('click', function() {
-			var iconClasses = [
-				'ui-icon-triangle-2-n-s', 
-				'ui-icon-triangle-1-s',
-				'ui-icon-triangle-1-n'
-			];
-			$(this).toggleIcons(iconClasses);
-		});
+		// Event: Update sort icon direction
+		$('#selected-fields .ui-custom-sorticon').live('click', 
+			function() {
+				var iconClasses = [
+					'ui-icon-triangle-2-n-s', 
+					'ui-icon-triangle-1-s',
+					'ui-icon-triangle-1-n'
+				];
+				$(this).toggleIcons(iconClasses);
+			}
+		);
 		
-		//add report year slider
+		// Interaction: Activate filter controls
+		$('<input type="checkbox" />').prependTo('h3');
+
+		
+		// Interaction: Sortable controls
+		$('#selected-fields').sortable({opacity:0.6});
+		
+		// Interaction: Slider controls
 		$('.slider').slider({
 			range:true,
 			min:1982, 
@@ -103,8 +100,7 @@ $(function () {
 			}
 		});
 		
-		$('<input type="checkbox" />').prependTo('h3');
-		
+		// Interaction: Datepicker controls
 		$('.date:text').datepicker({
 			buttonImage: 'stylesheets/flick/images/datepicker.gif',
 			buttomImageOnly: true
