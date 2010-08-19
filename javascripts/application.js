@@ -10,7 +10,13 @@ $.fn.sort = function() {
     return this;
 };
 
-$.fn.toggleIcons = function(iconClasses) {
+$.fn.toggleSort = function() {
+	var iconClasses = [
+		'ui-icon-triangle-2-n-s', 
+		'ui-icon-triangle-1-s',
+		'ui-icon-triangle-1-n'
+	];
+	
 	var icon = $(this);
 
 	$.each(iconClasses, function(idx, iconClass) {
@@ -58,32 +64,30 @@ $(function () {
 				
 		// Event: Add list item to display
 		$('.fields .ui-icon-plus').click(function() {
-		  //$(this).parent('li').appendTo('#selected-fields');
-		  $(this).parent('li').hide().appendTo('#selected-fields').fadeIn();
+		  $(this).parent('li').appendTo('#selected-fields').effect("highlight",{},2500);
 		});
 		
 		// Event: Remove list item
 		$('.fields .ui-icon-close').click(function() {
 		  var list = $('#available-fields');
-		  $(this).parent('li').hide().appendTo(list).fadeIn();
+		  $(this).parent('li').appendTo(list).effect("highlight",{},2500);
 		  list.sort();
 		});
 		
 		// Event: Update sort icon direction
 		$('#selected-fields .ui-custom-sorticon').live('click', 
-			function() {
-				var iconClasses = [
-					'ui-icon-triangle-2-n-s', 
-					'ui-icon-triangle-1-s',
-					'ui-icon-triangle-1-n'
-				];
-				$(this).toggleIcons(iconClasses);
+			function() { 
+				$(this).toggleSort(); 
 			}
 		);
 		
 		// Interaction: Activate filter controls
-		$('<input type="checkbox" />').prependTo('h3');
-
+		$('<input type="checkbox" />')
+			.prependTo('h3')
+			.click(function() {
+				$(this).parent('h3').effect('highlight',{},1000);
+			}
+		);
 		
 		// Interaction: Sortable controls
 		$('#selected-fields').sortable({opacity:0.6});
