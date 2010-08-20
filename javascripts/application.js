@@ -113,8 +113,34 @@ $(function () {
 		
 		// Interaction: Autocomplete controls
 		// TODO: Add data-method to specify search method
+		// TODO: Clear autocomplete on select
+		var cities = [{label:'Sacramento', value: 1}, {label:'San Francisco', value: 2}];
+		//$('#pesticides-selected')
 		$('.autocomplete:text').css('width','250px').autocomplete({
-			source: 'search.cfc?method=search_pesticides',
-			minLength: 5
+			//source: 'search.cfc?method=search_pesticides',
+			source: cities,
+			minLength: 2,
+			select: function(event, ui) {
+				$('<li></li>')
+					.append(ui.item.value + ' - ' + ui.item.label)
+					.appendTo('#pesticides-selected')
+					.effect('highlight', {} ,2000);
+					
+				// TODO: Filter out already selected columns (or just don't add them)
+				// TODO: Replace text field space (or add a reset button/graphic)
+				
+				//return false;
+			}
+			//change: function(event, ui) { return false; }
 		});
+		
+		// TODO: Interaction: Add tooltip controls
+		// Contains snippets from Data Dictionary
+		
+		// TODO: Interaction: Handle sort order events (trigger events)
+		// Trigger: sort-direction-changed, includes Field, Sort Oder
+		
+		// TODO: Help: Add shadowbox video player for tutorial video
+		
+		// TODO: Interaction: Modal display while loading/rendering results
 });
