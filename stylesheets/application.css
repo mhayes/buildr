@@ -11,6 +11,7 @@ ul.fields li {margin:2px 2px; padding:2px;text-transform:uppercase;}
 
 /* field icons */
 ul.fields span.ui-icon {float:left; margin-right:4px; cursor:pointer;}
+ul.fields span.ui-icon-info { float:right; margin-right:0px; }
 
 /* ui interaction styling */
 ul#selected-fields li {cursor:move;}

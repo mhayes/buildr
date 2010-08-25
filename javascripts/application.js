@@ -29,7 +29,8 @@ $(function () {
 		  $(this)
 		      .addClass("ui-state-default ui-widget-content ui-corner-all")
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-close"></span>')
-		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
+		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-info"></span>')
+			  .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
 		});
 		
 		// Syle: List hovering		
