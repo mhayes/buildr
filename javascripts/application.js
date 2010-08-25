@@ -35,7 +35,7 @@ $(function () {
 		$('#available-fields').sort();
 		
 		// Style: Replace H2 fonts		
-		Cufon.replace('h2');
+		//Cufon.replace('h2');
 		
 		// Style: Modal button
 		$('button.modal').button({
