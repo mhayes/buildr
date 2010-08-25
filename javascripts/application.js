@@ -10,32 +10,9 @@ $.fn.sort = function() {
     return this;
 };
 
-$.fn.toggleSort = function() {
-	var iconClasses = [
-		'ui-icon-triangle-2-n-s', 
-		'ui-icon-triangle-1-s',
-		'ui-icon-triangle-1-n'
-	];
-	
-	var icon = $(this);
-
-	$.each(iconClasses, function(idx, iconClass) {
-		if(icon.hasClass(iconClass)) {
-			icon.removeClass(iconClass)
-				.addClass(iconClasses[(idx+1)%iconClasses.length]);
-			
-			//stop the loop
-			return false;
-		}
-	});
-};
-
 $(function () {
 		// Utility: Order available-fields in ascending order
 		$('#available-fields').sort();
-		
-		// Style: Replace H2 fonts		
-		//Cufon.replace('h2');
 		
 		// Style: Modal button
 		$('button.modal').button({
@@ -52,7 +29,6 @@ $(function () {
 		  $(this)
 		      .addClass("ui-state-default ui-widget-content ui-corner-all")
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-close"></span>')
-		      .prepend('<span class="ui-custom-sorticon ui-widget-content ui-corner-all ui-icon ui-icon-triangle-2-n-s"></span>')
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
 		});
 		
@@ -73,14 +49,7 @@ $(function () {
 		  $(this).parent('li').appendTo(list).effect("highlight",{},2500);
 		  list.sort();
 		});
-		
-		// Event: Update sort icon direction
-		$('#selected-fields .ui-custom-sorticon').live('click', 
-			function() { 
-				$(this).toggleSort(); 
-			}
-		);
-		
+				
 		// Interaction: Activate filter controls
 		$('<input type="checkbox" />')
 			.prependTo('h3')
