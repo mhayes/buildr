@@ -55,8 +55,14 @@ $(function () {
 		$('<input type="checkbox" />')
 			.prependTo('h3')
 			.click(function() {
-				$(this).parent('h3').effect('highlight',{},1000);
-				$.jGrowl($(this).parent('h3').text() + " now active", {header:"Activated Filter"});
+				var checkboxInput = $(this);
+				checkboxInput.parent('h3').effect('highlight',{},1000);
+				var headerText = checkboxInput.is(':checked') ? 'Activated Filter' : 'Deactivated Filter';
+				var statusText = checkboxInput.is(':checked') ? 'active' : 'inactive';
+				$.jGrowl(
+					$(this).parent('h3').text() + " now " + statusText,
+					{header:headerText}
+				);
 			}
 		);
 		
@@ -70,32 +76,46 @@ $(function () {
 			max:new Date().getFullYear(), 
 			values:[1995, 2000],			
 			slide:function(event, ui) {
-				$(this).prev('p').find('.min.year').text(ui.values[0]);
-				$(this).prev('p').find('.max.year').text(ui.values[1]);
+				var slider = $(this).parent();
+				$('.min.year', slider).text(ui.values[0]);
+				$('.max.year', slider).text(ui.values[1]);
 			}
 		});
 		
 		// Interaction: Datepicker controls
-		$('.date:text').datepicker({
-			buttonImage: 'stylesheets/flick/images/datepicker.gif',
-			buttomImageOnly: true
-			
-		});
+		$('.date:text').datepicker();
 		
 		// Interaction: Autocomplete controls
 		// TODO: Add data-method to specify search method
 		// TODO: Clear autocomplete on select
 		$(':input[name^=filter-].autocomplete').each(function() {
+			$('<ul></ul>')
+				.attr('id','selected-' + $(this).attr('data-method'))
+				.insertAfter(this);
 			$(this).autocomplete({
 				source: 'search/' + $(this).attr('data-method') + '.js',
 				minLength: 2,
 				select: function(event, ui) {
-					console.log("event occured");
-					$('<li></li>')
-						.append(ui.item.value + ' - ' + ui.item.label)
-						.appendTo('ul#selected-' + $(this).attr('data-method'))
-						.effect('highlight', {}, 2000);
+					// check for duplicate entry first
+					// if it exists, just highlight that entry
+					// and start a jGrowl message
+					var itemName = $(this).attr('data-method');
+					var itemId = itemName + '-' + ui.item.value;
+					if($('#'+itemId).length > 0) {
+						$('#'+itemId).effect('highlight', {}, 2000);
+						$.jGrowl(ui.item.value + ' item has already been added', {header:'Duplicate Exists'});
+					} else {
+						$('<li></li>')
+							.append(ui.item.value + ' - ' + ui.item.label)
+							.attr('id', itemId)
+							.appendTo('ul#selected-' + itemName)
+							.effect('highlight', {}, 2000);
+					}
+				},
+				close: function(event, ui) {
+					$(this).val('');
 				}
+				
 			});
 		});
 		
@@ -105,8 +125,9 @@ $(function () {
 		});
 		*/
 		
+		$(":input[name=filter-sample-date-end]").hide();
+		$("<img src='stylesheets/flick/images/datepicker.gif' />").insertAfter(":input[name^=filter-sample-date-]");
 		$(':input[name=operator-sample-date]').change(function() {
-			mythis = $(this);
 			if($(this).val() == "bt") {
 				// setup range filter
 				$(":input[name=filter-sample-date-end]").show();
