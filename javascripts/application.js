@@ -30,7 +30,7 @@ $(function () {
 		      .addClass("ui-state-default ui-widget-content ui-corner-all")
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-close"></span>')
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-info"></span>')
-			  .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
+			  	.prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
 		});
 		
 		// Syle: List hovering		
@@ -56,6 +56,7 @@ $(function () {
 			.prependTo('h3')
 			.click(function() {
 				$(this).parent('h3').effect('highlight',{},1000);
+				$.jGrowl($(this).parent('h3').text() + " now active", {header:"Activated Filter"});
 			}
 		);
 		
@@ -84,24 +85,35 @@ $(function () {
 		// Interaction: Autocomplete controls
 		// TODO: Add data-method to specify search method
 		// TODO: Clear autocomplete on select
-		var cities = [{label:'Sacramento', value: 1}, {label:'San Francisco', value: 2}];
-		//$('#pesticides-selected')
-		$('.autocomplete:text').css('width','250px').autocomplete({
-			//source: 'search.cfc?method=search_pesticides',
-			source: cities,
-			minLength: 2,
-			select: function(event, ui) {
-				$('<li></li>')
-					.append(ui.item.value + ' - ' + ui.item.label)
-					.appendTo('#pesticides-selected')
-					.effect('highlight', {} ,2000);
-					
-				// TODO: Filter out already selected columns (or just don't add them)
-				// TODO: Replace text field space (or add a reset button/graphic)
-				
-				//return false;
+		$(':input[name^=filter-].autocomplete').each(function() {
+			$(this).autocomplete({
+				source: 'search/' + $(this).attr('data-method') + '.js',
+				minLength: 2,
+				select: function(event, ui) {
+					console.log("event occured");
+					$('<li></li>')
+						.append(ui.item.value + ' - ' + ui.item.label)
+						.appendTo('ul#selected-' + $(this).attr('data-method'))
+						.effect('highlight', {}, 2000);
+				}
+			});
+		});
+		
+		/*
+		$('.multiselect').each(function() {
+			$(this).multiselect({multiple:$(this).attr('multiple'), selectedText:"Hello world"});
+		});
+		*/
+		
+		$(':input[name=operator-sample-date]').change(function() {
+			mythis = $(this);
+			if($(this).val() == "bt") {
+				// setup range filter
+				$(":input[name=filter-sample-date-end]").show();
+			} else {
+				// setup single filter
+				$(":input[name=filter-sample-date-end]").hide();
 			}
-			//change: function(event, ui) { return false; }
 		});
 		
 		// TODO: Interaction: Add tooltip controls
