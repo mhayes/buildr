@@ -6,9 +6,8 @@
     <link type="text/css" href="stylesheets/flick/jquery-ui-1.8.4.custom.css" rel="stylesheet" />
     <link href="stylesheets/grid.css" type="text/css" rel="stylesheet" media="screen" />
     <link href="stylesheets/application.css" type="text/css" rel="stylesheet" media="screen" />
-    <script type="text/javascript" src="javascripts/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="javascripts/cufon-yui.js"></script>
-	<script type="text/javascript" src="javascripts/rockwell.font.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="javascripts/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="javascripts/jquery-ui-1.8.4.custom.min.js"></script>
     <script type="text/javascript" src="javascripts/application.js"></script>
 </head>
@@ -20,28 +19,28 @@
 			<p>Go ahead and select the fields you'd like
 			to display on your report.</p>
             <ul id="available-fields" class="fields">
-                <li class="orderable">Well Code</li> 
+                <li>Well Code</li> 
                 <li>Agency Name</li> 
-                <li class="orderable">Agency Code</li> 
-                <li class="orderable">Sample Date</li> 
-                <li class="orderable">Pesticide Code</li> 
-                <li class="orderable">Pesticide Name</li> 
+                <li>Agency Code</li> 
+                <li>Sample Date</li> 
+                <li>Pesticide Code</li> 
+                <li>Pesticide Name</li> 
                 <li>Amount Detected</li> 
                 <li>Detection Limit</li> 
                 <li>Lab Code</li> 
-                <li class="orderable">Lab Name</li> 
+                <li>Lab Name</li> 
                 <li>Analysis Date</li> 
-                <li class="orderable">Study Name</li> 
-                <li class="orderable">Report Year</li> 
+                <li>Study Name</li> 
+                <li>Report Year</li> 
                 <li>Water Depth</li> 
                 <li>Contamination Source</li> 
                 <li>County Name</li> 
                 <li>Detection Status</li> 
-                <li class="orderable">County Code</li> 
+                <li>County Code</li> 
                 <li>Lab Method Note</li> 
                 <li>Well Depth</li> 
                 <li>Well Type Code</li> 
-                <li class="orderable">Well Location Code - MTRS</li> 
+                <li>Well Location Code - MTRS</li> 
             </ul>
         </div>
             
@@ -55,7 +54,7 @@
         <div class="column grid_4">
             <h2>Step 3: Filter</h2>
 			<p>Limit the number of results returned by
-			setting some filters.</p>
+			setting some filters.  To activate a filter, just check it.</p>
             <!--
 			<button type="button" class="add-filter">Add filter</button>
 			-->
@@ -69,12 +68,23 @@
 			
 			<h3>Sample Date</h3>
 			<p><input type="text" class="date" />
-			<input type="text" class="date" /></p>
+			<input name="sample-date" type="text" class="date" /></p>
 			
 			<h3>Amount Detected</h3>
-			<p>Not set</p>
+			<p><input name="amount" type="text" class="titleHintBox" title="Please enter a numeric value in the format 0.00"></p>
 			
 			<h3>Pesticides</h3>
+			<p><input name="pesticide" type="text" class="autocomplete" /></p>
+			
+			<h3>County</h3>
+			<input name="county" type="text" class="autocomplete titleHintBox" title="">
+			<ul id="counties-selected"></ul>
+			
+			<h3>Agency Name</h3>
+			<input name="agency" type="text" class="titleHintBox" title="">
+			
+			<h3>Well Type Code</h3>
+			<input name="well-type" type="text" class="titleHintBox" title="">
 			<p><input type="text" class="autocomplete" /></p>
 			
 			<!--
