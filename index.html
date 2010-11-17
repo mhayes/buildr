@@ -8,6 +8,7 @@
     <link href="stylesheets/application.css" type="text/css" rel="stylesheet" media="screen" />
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:regular,bold' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="javascripts/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.json.min.js"></script>
     <script type="text/javascript" src="javascripts/jquery-ui-1.8.4.custom.min.js"></script>
     <script type="text/javascript" src="javascripts/application.js"></script>
 </head>
@@ -74,18 +75,17 @@
 			<p><input name="amount" type="text" class="titleHintBox" title="Please enter a numeric value in the format 0.00"></p>
 			
 			<h3>Pesticides</h3>
-			<p><input name="pesticide" type="text" class="autocomplete" /></p>
+			<p><input name="pesticide" type="text" class="autocomplete" data-method="search_pesticides" /></p>
 			
 			<h3>County</h3>
-			<input name="county" type="text" class="autocomplete titleHintBox" title="">
+			<input name="county" type="text" class="autocomplete" data-method="search_counties">
 			<ul id="counties-selected"></ul>
 			
 			<h3>Agency Name</h3>
-			<input name="agency" type="text" class="titleHintBox" title="">
+			<input name="agency" type="text" class="autocomplete" data-method="search_agencies">
 			
 			<h3>Well Type Code</h3>
-			<input name="well-type" type="text" class="titleHintBox" title="">
-			<p><input type="text" class="autocomplete" /></p>
+			<p><input name="well-type" type="text"></p>
 			
 			<!--
 			<button type="button" class="modal">Add</button>

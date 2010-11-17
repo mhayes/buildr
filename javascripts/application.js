@@ -26,8 +26,7 @@ $(function () {
 		
 		// Style: List items
 		$('.fields li').each(function() {
-		  $(this)
-		      .addClass('ui-state-default ui-widget-content ui-corner-all')
+		  $(this).addClass('ui-state-default ui-widget-content ui-corner-all')
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-close"></span>')
 		      .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-info"></span>')
 			  .prepend('<span class="ui-widget-content ui-corner-all ui-icon ui-icon-plus"></span>');
@@ -76,8 +75,8 @@ $(function () {
 		
 		// Interaction: Datepicker controls
 		$('.date:text').datepicker({
-			buttonImage: 'stylesheets/flick/images/datepicker.gif',
-			buttomImageOnly: true
+			buttonImage:'stylesheets/flick/images/datepicker.gif',
+			buttomImageOnly:true
 			
 		});
 		
@@ -85,12 +84,12 @@ $(function () {
 		// TODO: Add data-method to specify search method
 		// TODO: Clear autocomplete on select
 		$('.autocomplete:text').css('width','250px').autocomplete({
-			/*source: function(request, response) {
+			source: function(request, response) {
 				$.ajax({
 					type:'POST',
 					url:'search.cfc',
 					data: {
-						method:'search_counties',
+						method:this.element.attr('data-method'),
 						term:request.term
 					},
 					success:function(data, textStatus) {
@@ -98,9 +97,8 @@ $(function () {
 					},
 					dataType:'json'
 				});
-			},*/
-			source:'search.cfc?method=search_counties',
-			minLength: 2,
+			},
+			minLength: 3,
 			select: function(event, ui) {
 				$('<li></li>')
 					.append(ui.item.value + ' - ' + ui.item.label)
@@ -124,4 +122,40 @@ $(function () {
 		// TODO: Help: Add shadowbox video player for tutorial video
 		
 		// TODO: Interaction: Modal display while loading/rendering results
+		
+		// DEMO: Call API to deliver data
 });
+
+function fetchSampleData(yrStart,yrEnd,detected,chemCodes) {
+	console.info("starting remote call");
+	console.time("fetchSampleData");
+	
+	/* 
+		Additional information about passing complex objects to CFC's remotely
+		using jQuery can be found in this post:
+		http://stackoverflow.com/questions/3999283
+	*/
+	var argumentCollection = {
+		rpt_yr_range:{start:1985, end:1990},
+		conc_gt:5,
+		chem_in:[183]
+	}
+	
+	$.ajax({
+		type:'POST',
+		url:'data.cfc',
+		data: {
+			method:'get_sample_data',
+			argumentCollection: $.toJSON(argumentCollection)
+		},
+		success:function(data, textStatus) {
+			console.info('data recieved');
+			console.timeEnd("fetchSampleData");
+		},
+		error:function(request, textStatus, errorThrown) {
+			console.info("an error was thrown");
+		},
+		dataType:'json'
+	});
+	
+}
