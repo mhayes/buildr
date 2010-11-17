@@ -122,9 +122,33 @@ $(function () {
 		// TODO: Help: Add shadowbox video player for tutorial video
 		
 		// TODO: Interaction: Modal display while loading/rendering results
+		$("#run_report").click(function() {
+			getData('get_sample_data', {rpt_yr_range:{start:1985,end:1986}, conc_gt:5, chem_in:[183]}, function(data,textStatus){
+				// Anonymous Success Handler
+				console.info(data);
+				//$('#record-results').html();
+			});
+		});
 		
 		// DEMO: Call API to deliver data
 });
+
+function getData(methodName, argumentCollection, successHandler) {
+	//var successHandler = function(data,textStatus) { alert('success'); };
+	var errorHandler = function(request, textStatus, errorThrown) { alert('error'); }
+	
+	$.ajax({
+		type:'POST',
+		url:'data.cfc',
+		data:{
+			method:methodName,
+			argumentCollection:$.toJSON(argumentCollection)
+		},
+		success:successHandler,
+		error:errorHandler,
+		dataType:'json'
+	});
+}
 
 function fetchSampleData(yrStart,yrEnd,detected,chemCodes) {
 	console.info("starting remote call");
