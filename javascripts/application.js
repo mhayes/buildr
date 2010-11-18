@@ -93,7 +93,20 @@ $(function () {
 				.attr('id','selected-' + $(this).attr('data-method'))
 				.insertAfter(this);
 			$(this).autocomplete({
-				source: 'search/' + $(this).attr('data-method') + '.js',
+				source: function(request, response) {
+					$.ajax({
+						type:'POST',
+						url:'search.cfc',
+						data: {
+							method:this.element.attr('data-method'),
+							term:request.term
+						},
+						success:function(data, textStatus) {
+							response(data);
+						},
+						dataType:'json'
+					});
+				},
 				minLength: 2,
 				select: function(event, ui) {
 					// check for duplicate entry first
